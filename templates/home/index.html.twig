@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+        {% for article in articles %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <a href="{{ path('app_article_show', { id: article.id }) }}" class="text-decoration-none text-dark">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.content|slice(0, 100) ~ '...' }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    No records found.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

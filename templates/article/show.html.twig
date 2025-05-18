@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
     <h1>Article</h1>
+    {% if article.categories|length > 0 %}
+        Catégories : {{ article.categories|map(c => c.name)|join(', ') }}
+    {% endif %}
 
     <table class="table">
         <tbody>

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+<h1>{{ article.title }}</h1>
+<p>{{ article.content }}</p>
+<h2 class="mt-5">Commentaires</h2>
+
+{% for comment in article.comments %}
+    <div class="card my-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ comment.author }}</h5>
+            <p class="card-text">{{ comment.content }}</p>
+            <p class="text-muted">{{ comment.cratedAt|date('d/m/Y H:i') }}</p>
+        </div>
+    </div>
+{% else %}
+    <p class="text-muted">Aucun commentaire pour le moment.</p>
+{% endfor %}
+{{ form_start(commentForm) }}
+    {{ form_row(commentForm.Author) }}
+    {{ form_row(commentForm.Content) }}
+    <button class="btn btn-primary">Commenter</button>
+{{ form_end(commentForm) }}
+
+
+{% endblock %}
