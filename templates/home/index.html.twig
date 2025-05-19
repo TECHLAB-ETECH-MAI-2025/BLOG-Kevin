@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container mt-4">
     <div class="row">
-        {% for article in articles %}
+        {% for article in pagination %}
             <div class="col-md-6 col-lg-4 mb-4">
                 <a href="{{ path('app_article_show', { id: article.id }) }}" class="text-decoration-none text-dark">
                     <div class="card h-100">
@@ -24,6 +24,10 @@
             </div>
         {% endfor %}
     </div>
+    <div class="pagination justify-content-center my-4">
+        {{ knp_pagination_render(pagination)}}
+    </div>
+
 </div>
 
 
