@@ -6,7 +6,7 @@
     <div class = "container mt-4">
         <h1 class="text-primary" >Article index</h1>
     
-        <table class="table">
+        <table class="table" id="articles-table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -30,7 +30,7 @@
                     {% endfor %}
                     </td>
                     <td>
-                        <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-danger">show</a>
+                        <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-primary">show</a>
                         <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-success">edit</a>
                     </td>
                 </tr>
@@ -43,6 +43,9 @@
         </table>
 
         <a href="{{ path('app_article_new') }}" class="btn btn-primary" >Create new</a>
+        {# <div class="pagination justify-content-end my-4">
+            {{ knp_pagination_render(pagination)}}
+        </div> #}
     </div>
 
 {% endblock %}
