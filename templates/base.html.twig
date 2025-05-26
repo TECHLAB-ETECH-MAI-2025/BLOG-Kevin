@@ -12,6 +12,7 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             {{ encore_entry_script_tags('article_list') }}
+            {{ encore_entry_script_tags('category_list') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
@@ -29,6 +30,11 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href=" {{ path('app_article_index') }} ">Article</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href=" {{ path('app_category_index') }} ">Category</a>
                     </li>
                 </ul>
                 </div>
