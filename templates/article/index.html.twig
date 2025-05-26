@@ -4,14 +4,15 @@
 
 {% block body %}
     <div class = "container mt-4">
-        <h1 class="text-primary" >Article index</h1>
+        <h1>Article index</h1>
     
-        <table class="table" id="articles-table">
+        <table class="table" id="article-table">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Image</th>
                     <th>Title</th>
                     <th>Content</th>
+                    <th>Date/Time</th>
                     <th>Categories</th>
                     <th>actions</th>
                 </tr>
@@ -19,19 +20,27 @@
             <tbody>
             {% for article in articles %}
                 <tr >
-                    <td>{{ article.id }}</td>
-                    <td>{{ article.title }}</td>
-                    <td>{{ article.content }}</td>
                     <td>
-                    {% for category in article.categories %}
-                        <div>{{category.name }}</div>  
-                    {% else %}
-                        Aucun categorie
-                    {% endfor %}
+                        {% if article.imageName %}
+                            <img src="{{ asset('images/article/' ~ article.imageName) }}" alt="Image de l'article" style="width: 100%; height: 100px; object-fit: cover;" >
+                        {% else %}
+                            None
+                        {% endif %}
                     </td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.content |slice(0, 200) ~ '...' }}</td>
+                    <td>{{article.createdAt |date('d/m/Y H:i')}}  </td>
                     <td>
+                        {% for category in article.categories %}
+                            <div>{{category.name }}</div>  
+                        {% else %}
+                            Aucun categorie
+                        {% endfor %}
+                    </td>
+                    <td class="d-flex gap-2">
                         <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-primary">show</a>
                         <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-success">edit</a>
+                        {{ include('article/_delete_form.html.twig') }}
                     </td>
                 </tr>
             {% else %}

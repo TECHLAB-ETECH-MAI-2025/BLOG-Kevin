@@ -3,18 +3,25 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <div class="row">
+    <div class="card-group">
         {% for article in pagination %}
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class=" m-2 card" style="width: 18rem;">
                 <a href="{{ path('app_article_show', { id: article.id }) }}" class="text-decoration-none text-dark">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ article.title }}</h5>
-                            <p class="card-text">{{ article.content|slice(0, 100) ~ '...' }}</p>
-                        </div>
+
+                    {% if article.imageName %}
+                        <img src="{{ asset('images/article/' ~ article.imageName) }}" alt="Image de l'article" style = " height:200px; object-fit: cover;" class="card-img-top" >
+                    {% endif %}
+                    <div class="card-body">
+                        <h5>{{ article.title }}</h5>
+                        <p class="card-text text-muted">{{ article.content|slice(0, 200) ~ '...' }}</p>
+                        {% if article.categories|length > 0 %}
+                            <p class="text-secondary"> {{ article.categories|map(c => c.name)|join(', ') }} <p>
+                        {% endif %}
+
+                        <p class="fst-italic">{{article.createdAt|date('d/m/Y H:i') }} </p>
                     </div>
                 </a>
+
             </div>
         {% else %}
             <div class="col-12">
@@ -23,12 +30,12 @@
                 </div>
             </div>
         {% endfor %}
+    
     </div>
     <div class="pagination justify-content-center my-4">
         {{ knp_pagination_render(pagination)}}
     </div>
 
-</div>
 
 
 {% endblock %}

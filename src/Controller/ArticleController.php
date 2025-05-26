@@ -6,7 +6,6 @@ use App\Entity\Article;
 use App\Form\ArticleForm;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +30,9 @@ final class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now = new \DateTimeImmutable();
+            $plusHour = $now->modify('+3 hour');
+            $article->setCreatedAt($plusHour) ; 
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -40,14 +42,6 @@ final class ArticleController extends AbstractController
         return $this->render('article/new.html.twig', [
             'article' => $article,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
-    public function show(Article $article): Response
-    {
-        return $this->render('article/show.html.twig', [
-            'article' => $article,
         ]);
     }
 
