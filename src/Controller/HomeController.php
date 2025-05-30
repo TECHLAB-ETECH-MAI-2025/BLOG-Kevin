@@ -41,7 +41,8 @@ final class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCratedAt(new \DateTimeImmutable());
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setAuthor($this->getUser());
 
             $entityManager->persist($comment);
             $entityManager->flush();

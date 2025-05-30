@@ -19,14 +19,13 @@
             <div class="card-body">
                 <h5 class="card-title">{{ comment.author }}</h5>
                 <p class="card-text">{{ comment.content }}</p>
-                <p class="text-muted">{{ comment.cratedAt|date('d/m/Y H:i') }}</p>
+                <p class="text-muted">{{ comment.createdAt|date('d/m/Y H:i') }}</p>
             </div>
         </div>
     {% else %}
         <p class="text-muted">Aucun commentaire pour le moment.</p>
     {% endfor %}
     {{ form_start(commentForm) }}
-        {{ form_row(commentForm.Author) }}
         {{ form_row(commentForm.Content) }}
         <button class="btn btn-primary">Commenter</button>
     {{ form_end(commentForm) }}

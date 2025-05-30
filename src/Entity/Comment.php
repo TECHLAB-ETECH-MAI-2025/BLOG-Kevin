@@ -14,67 +14,67 @@ class Comment
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Author = null;
-
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $Content = null;
+    private ?string $content = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $cratedAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    private ?Article $Article = null;
+    private ?Article $article = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->Author;
-    }
-
-    public function setAuthor(string $Author): static
-    {
-        $this->Author = $Author;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
-        return $this->Content;
+        return $this->content;
     }
 
-    public function setContent(string $Content): static
+    public function setContent(string $content): static
     {
-        $this->Content = $Content;
+        $this->content = $content;
 
         return $this;
     }
 
-    public function getCratedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->cratedAt;
+        return $this->createdAt;
     }
 
-    public function setCratedAt(\DateTimeImmutable $cratedAt): static
+    public function setCreatedAt(\DateTimeImmutable $cratedAt): static
     {
-        $this->cratedAt = $cratedAt;
+        $this->createdAt = $cratedAt;
 
         return $this;
     }
 
     public function getArticle(): ?Article
     {
-        return $this->Article;
+        return $this->article;
     }
 
-    public function setArticle(?Article $Article): static
+    public function setArticle(?Article $article): static
     {
-        $this->Article = $Article;
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
