@@ -1,0 +1,25 @@
+<div class="col-md-3">
+    <div class="list-group">
+        <div class="list-group-item fw-bold bg-light">Menu</div>
+
+        <a href="{{path('app_profile')}} "
+           class="list-group-item list-group-item-action {% if app.request.attributes.get('_route') == 'app_profile' %}active{% endif %}">
+            Mon profil
+        </a>
+
+        <a href=" {{ path('app_profile_edit') }} "
+           class="list-group-item list-group-item-action {% if app.request.attributes.get('_route') == 'app_profile_edit' %}active{% endif %}">
+            Modifier mon profil
+        </a>
+
+        <a href="{{path('app_profile_change_password')}} "
+           class="list-group-item list-group-item-action {% if app.request.attributes.get('_route') == 'app_change_password' %}active{% endif %}">
+            Changer mon mot de passe
+        </a>
+
+        <a href="{{ path('app_logout') }}"
+           class="list-group-item list-group-item-action text-danger">
+            Déconnexion
+        </a>
+    </div>
+</div>

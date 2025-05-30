@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        {% include 'profile/_sidebar.html.twig' %}
+
+
+        <div class="col-md-9">
+            <h2 class="mb-4">Modifier mon profil</h2>
+
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(profileForm) }}
+
+                <div class="mb-3">
+                    {{ form_label(profileForm.firstName, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(profileForm.firstName) }}
+                    <div class="form-text text-danger">{{ form_errors(profileForm.firstName) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(profileForm.lastName, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(profileForm.lastName) }}
+                    <div class="form-text text-danger">{{ form_errors(profileForm.lastName) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(profileForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(profileForm.email) }}
+                    <div class="form-text text-danger">{{ form_errors(profileForm.email) }}</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+            {{ form_end(profileForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

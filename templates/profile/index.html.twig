@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Menu latéral -->
+        {% include 'profile/_sidebar.html.twig' %}
+        
+        <!-- Contenu principal -->
+        <div class="col-md-9">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <div class="avatar-placeholder mb-3">
+                        {{ app.user.firstName|slice(0, 1)|upper }}{{ app.user.lastName|slice(0, 1)|upper }}
+                    </div>
+                    <h4>{{ app.user.fullName }}</h4>
+                    <p>{{ app.user.email }}</p>
+                    <p>
+                        {% if app.user.isVerified %}
+                            <span class="badge bg-success">Email vérifié</span>
+                        {% else %}
+                            <span class="badge bg-danger">Email non vérifié</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Infos personnelles -->
+                <div class="col-md-6">
+                    <h5>Informations personnelles</h5>
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item"><strong>Prénom :</strong> {{ app.user.firstName|default('Non renseigné') }}</li>
+                        <li class="list-group-item"><strong>Nom :</strong> {{ app.user.lastName|default('Non renseigné') }}</li>
+                        <li class="list-group-item"><strong>Email :</strong> {{ app.user.email }}</li>
+                    </ul>
+                </div>
+
+                <!-- Infos compte -->
+                <div class="col-md-6">
+                    <h5>Informations du compte</h5>
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item"><strong>Date d'inscription :</strong> {{ app.user.createdAt|date('d/m/Y') }}</li>
+                        <li class="list-group-item">
+                            <strong>Rôle :</strong>
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                                Administrateur
+                            {% else %}
+                                Utilisateur
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Statut :</strong>
+                            {% if app.user.isVerified %}
+                                Email vérifié
+                            {% else %}
+                                Email non vérifié
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <a href="#" class="btn btn-primary">Modifier mon profil</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            background-color: #4361ee;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 36px;
+        }
+    </style>
+{% endblock %}

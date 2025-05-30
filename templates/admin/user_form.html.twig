@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.id ? 'Modifier l\'utilisateur' : 'Nouvel utilisateur' }}{% endblock %}
+
+{% block body %}
+
+    <div class="container my-5">
+        {% include 'admin/_menu.html.twig' %}   
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <h1 class="mb-4">{{ user.id ? 'Modifier un utilisateur' : 'Créer un nouvel utilisateur' }}</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {{ form_start(form) }}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.email) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.plainPassword) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.roles) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(form.isVerified) }}
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ path('app_admin_users') }}" class="btn btn-outline-secondary">← Retour</a>
+                    <button type="submit" class="btn btn-primary">
+                        {{ user.id ? 'Mettre à jour' : 'Créer l\'utilisateur' }}
+                    </button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
